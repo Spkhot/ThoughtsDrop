@@ -3,7 +3,6 @@ const router = express.Router();
 const Problem = require('../models/problem');
 
 // Submit a new problem
-// Submit a new problem
 router.post('/', async (req, res) => {
   const { title, description, category } = req.body;
 
@@ -16,13 +15,12 @@ router.post('/', async (req, res) => {
     await newProblem.save();
     res.status(201).json(newProblem);
   } catch (err) {
-    console.error(err);
+    console.error('❌ Error saving problem:', err);
     res.status(500).json({ error: 'Server error' });
   }
 });
 
-
-// Get all problems by category
+// Get problems by category
 router.get('/:category', async (req, res) => {
   try {
     const { category } = req.params;
@@ -33,7 +31,7 @@ router.get('/:category', async (req, res) => {
   }
 });
 
-// Submit a reply to a problem
+// Reply to a problem
 router.post('/:id/reply', async (req, res) => {
   try {
     const { reply } = req.body;
