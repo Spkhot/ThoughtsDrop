@@ -5,7 +5,12 @@ const problemSchema = new mongoose.Schema({
   description: String,
   category: String,
   replies: {
-    type: [String],
+    type: [
+      {
+        text: String,
+        createdAt: { type: Date, default: Date.now }
+      }
+    ],
     default: []
   },
   createdAt: {
