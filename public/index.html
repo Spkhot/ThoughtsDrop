@@ -4,17 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ThoughtDrop - Anonymous Help Platform</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Prompt:wght@500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-light: linear-gradient(135deg, #a18cd1, #fbc2eb);
-      --bg-dark: linear-gradient(135deg, #1f1c2c, #928dab);
-      --card-bg-light: rgba(255, 255, 255, 0.9);
-      --card-bg-dark: rgba(30, 30, 30, 0.9);
-      --text-light: #2c2c2c;
-      --text-dark: #f5f5f5;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -22,184 +13,137 @@
     }
 
     body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--bg-light);
-      color: var(--text-light);
-      transition: all 0.4s ease;
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(120deg, #3f2b96, #a8c0ff);
+      color: #ffffff;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 2rem;
+      flex-direction: column;
+      animation: fadeIn 2s ease-in-out;
     }
 
-    body.dark {
-      background: var(--bg-dark);
-      color: var(--text-dark);
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .logo span {
+      color: #ffccff;
     }
 
     .container {
-      background: var(--card-bg-light);
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      border-radius: 25px;
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-      display: flex;
-      flex-direction: row;
-      max-width: 1100px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      padding: 2.5rem;
       width: 100%;
-      overflow: hidden;
-      animation: fadeIn 1.2s ease;
+      max-width: 800px;
+      text-align: center;
     }
 
-    body.dark .container {
-      background: var(--card-bg-dark);
-    }
-
-    .content {
-      flex: 1;
-      padding: 2.5rem 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      animation: slideInLeft 1s ease;
-    }
-
-    .content h1 {
-      font-size: 2.8rem;
+    h1 {
+      font-size: 3rem;
       margin-bottom: 1rem;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
-    .typing {
-      display: inline-block;
-      border-right: 2px solid;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 3s steps(30, end), blink 0.8s infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
-
-    .content p {
+    .slogan {
       font-size: 1.2rem;
-      line-height: 1.6;
+      color: #f0f0f0;
       margin-bottom: 2rem;
+      line-height: 1.6;
     }
 
     .buttons {
       display: flex;
-      gap: 1.2rem;
+      justify-content: center;
       flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
     }
 
     a.button {
-      padding: 1rem 2rem;
-      border-radius: 40px;
-      background: linear-gradient(90deg, #ff7eb3, #ff758c);
-      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 30px;
+      background: #ff7eb3;
+      color: #fff;
       text-decoration: none;
       font-weight: bold;
       transition: all 0.3s ease;
       font-size: 1.1rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
 
     a.button:hover {
-      background-color: #ff559d;
-      transform: translateY(-2px);
+      background: #ff559d;
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
     }
 
-    .dark a.button {
-      color: white;
+    .latest-section {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 15px;
+      animation: fadeInUp 1.5s ease forwards;
     }
 
-    .image-section {
-      flex: 1;
-      background: url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=700&q=80') no-repeat center center/cover;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .latest-section h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    #latest-list {
+      list-style: none;
+      padding-left: 1rem;
+      color: #f1f1f1;
+      max-height: 200px;
+      overflow-y: auto;
+      text-align: left;
+    }
+
+    #latest-list li {
+      margin-bottom: 0.8rem;
+      padding-left: 0.5rem;
+      border-left: 3px solid #ff9db3;
+      line-height: 1.5;
     }
 
     footer {
       margin-top: 2rem;
-      text-align: center;
       font-size: 0.9rem;
+      color: #ddd;
     }
 
-    .dark-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 1.4rem;
-      cursor: pointer;
-      background: rgba(255, 255, 255, 0.3);
-      padding: 8px 14px;
-      border-radius: 25px;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-    }
-
-    .dark-toggle:hover {
-      background: rgba(255, 255, 255, 0.5);
-    }
-
-    /* Testimonials */
-    .testimonials {
-      margin-top: 2rem;
-      font-size: 1rem;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 1rem;
-      border-radius: 12px;
-      overflow: hidden;
-      height: 80px;
-      position: relative;
-    }
-
-    .testimonial-slide {
-      position: absolute;
-      animation: slide 15s infinite;
-    }
-
-    @keyframes slide {
-      0% { top: 0; }
-      20% { top: 0; }
-      25% { top: -80px; }
-      45% { top: -80px; }
-      50% { top: -160px; }
-      70% { top: -160px; }
-      75% { top: -240px; }
-      95% { top: -240px; }
-      100% { top: 0; }
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes slideInLeft {
-      from { transform: translateX(-40px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    /* Responsive */
     @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
+      h1 {
+        font-size: 2.2rem;
       }
-      .image-section {
-        height: 250px;
-        background-position: top;
+
+      .slogan {
+        font-size: 1rem;
       }
-      .buttons {
-        flex-direction: column;
-        align-items: stretch;
-      }
+
       a.button {
         width: 100%;
         text-align: center;
@@ -209,50 +153,46 @@
 </head>
 <body>
 
-  <div class="dark-toggle" onclick="toggleDarkMode()">🌙</div>
+  <div class="logo">Thought<span>Drop</span></div>
 
   <div class="container">
-    <div class="content">
-      <h1><span class="typing">Welcome to ThoughtDrop</span></h1>
-      <p>
-        ThoughtDrop is your anonymous, safe space to talk about anything — relationships, stress, college life, mental health, or even career anxiety. No judgment. No login. Just real support from real people.
-      </p>
-      <div class="buttons">
-        <a href="view.html" class="button" onclick="playFeedback()">📖 View Problems</a>
-        <a href="ask.html" class="button" onclick="playFeedback()">📝 Ask a Problem</a>
-      </div>
+    <h1>Welcome to ThoughtDrop</h1>
+    <p class="slogan">
+      Feeling overwhelmed? Share your thoughts anonymously and get support without judgment.  
+      Your voice matters here. Let it be heard — safely.
+    </p>
 
-      <div class="testimonials">
-        <div class="testimonial-slide">
-          <div>💬 “Finally a place I can talk freely.” – Student, Delhi</div>
-          <div>💬 “Helped me cope with exam stress.” – Anonymous</div>
-          <div>💬 “Better than any advice forum I’ve seen.” – College Freshman</div>
-          <div>💬 “I love the simplicity and kindness here.” – User #134</div>
-        </div>
-      </div>
-
-      <footer>&copy; 2025 ThoughtDrop. All rights reserved.</footer>
+    <div class="buttons">
+      <a href="view.html" class="button">📖 View Problems</a>
+      <a href="ask.html" class="button">📝 Ask a Problem</a>
     </div>
-    <div class="image-section" aria-hidden="true"></div>
+
+    <div class="latest-section">
+      <h2>🆕 Latest Anonymous Posts</h2>
+      <ul id="latest-list">Loading...</ul>
+    </div>
+
+    <footer>&copy; 2025 ThoughtDrop. All rights reserved.</footer>
   </div>
 
-  <audio id="tapSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" preload="auto"></audio>
-
   <script>
-    // 🌗 Toggle dark mode
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark");
-      const toggle = document.querySelector('.dark-toggle');
-      toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
-    }
+    fetch('/api/problems')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("latest-list");
+        if (!Array.isArray(data) || data.length === 0) {
+          list.innerHTML = "<li>No posts yet. Be the first to share!</li>";
+          return;
+        }
 
-    // 📳 Mobile feedback
-    function playFeedback() {
-      if (navigator.vibrate) navigator.vibrate(50);
-      const sound = document.getElementById("tapSound");
-      sound.currentTime = 0;
-      sound.play();
-    }
+        const latest = data.slice(-3).reverse();
+        list.innerHTML = latest.map(p =>
+          `<li>${p.text.length > 100 ? p.text.slice(0, 100) + "..." : p.text}</li>`
+        ).join('');
+      })
+      .catch(() => {
+        document.getElementById("latest-list").innerHTML = "<li>Unable to load posts.</li>";
+      });
   </script>
 
 </body>

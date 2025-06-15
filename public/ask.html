@@ -4,117 +4,153 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ThoughtDrop - Ask a Problem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      font-family: 'Nunito', sans-serif;
-      background: linear-gradient(to right, #c471f5, #fa71cd);
-      margin: 0;
-      padding: 0;
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(135deg, #6228d7, #aa00ff);
+      color: #ffffff;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 2rem;
-      color: #333;
-    }
-
-    .container {
-      background: #ffffffee;
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      padding: 2rem 2.5rem;
-      max-width: 600px;
-      width: 100%;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      animation: fadeIn 1s ease-in-out;
+      animation: fadeIn 1.2s ease-in-out;
     }
 
     @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .logo span {
+      color: #ffccff;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      padding: 2rem 2.5rem;
+      width: 100%;
+      max-width: 600px;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
       text-align: center;
-      color: #5b0e88;
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      font-size: 2.4rem;
+      color: #ffffff;
+      margin-bottom: 0.8rem;
     }
 
     p.intro {
       text-align: center;
-      font-size: 1.1rem;
-      color: #444;
+      font-size: 1rem;
       margin-bottom: 2rem;
+      color: #f2e6ff;
     }
 
     label {
       font-weight: bold;
       display: block;
       margin-top: 1rem;
-      color: #333;
+      margin-bottom: 0.4rem;
+      color: #ffffff;
     }
 
     select, input, textarea {
       width: 100%;
-      padding: 0.7rem;
+      padding: 0.8rem;
       font-size: 1rem;
-      margin-top: 0.3rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      background-color: #fdfdfd;
-      transition: box-shadow 0.3s ease;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(3px);
+    }
+
+    option {
+      background-color: #6528d7;
+      color: #ffffff;
     }
 
     select:focus, input:focus, textarea:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(195, 113, 245, 0.3);
-      border-color: #c471f5;
+      background-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+    }
+
+    select::placeholder, input::placeholder, textarea::placeholder {
+      color: #f2dfff;
     }
 
     button {
       width: 100%;
-      margin-top: 2rem;
-      background: #c471f5;
-      color: white;
-      font-size: 1.1rem;
+      padding: 0.9rem;
+      background: #ff7eb3;
       border: none;
-      padding: 0.8rem;
-      border-radius: 10px;
-      cursor: pointer;
+      border-radius: 30px;
+      font-size: 1.1rem;
       font-weight: bold;
-      transition: background 0.3s ease, transform 0.2s;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1.2rem;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
 
     button:hover {
-      background: #a85ae0;
+      background: #ff559d;
       transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
     }
 
     footer {
-      margin-top: 1.5rem;
+      margin-top: 2rem;
       text-align: center;
       font-size: 0.9rem;
-      color: #666;
+      color: #f0e6ff;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
       h1 { font-size: 2rem; }
-      p.intro { font-size: 1rem; }
+      p.intro { font-size: 0.95rem; }
     }
   </style>
 </head>
 <body>
 
+  <div class="logo">Thought<span>Drop</span></div>
+
   <div class="container">
-    <h1>Ask Your Problem</h1>
+    <h1>Ask a Problem</h1>
     <p class="intro">
-      This is your safe space. Don’t worry about judgment or identity. Just share what’s troubling you — whether it’s about studies, relationships, mental health, or life struggles.
+      This is your safe space. Don’t worry about judgment or identity. Just share what’s troubling you — studies, relationships, or anything in life.
     </p>
 
     <form id="problemForm">
@@ -149,26 +185,26 @@
       const title = document.getElementById('title').value.trim();
       const description = document.getElementById('description').value.trim();
 
-      if (!category) return alert('Please select a category.');
-      if (!title) return alert('Please enter a title.');
-      if (!description) return alert('Please enter a description.');
+      if (!category || !title || !description) {
+        return alert("Please fill out all fields.");
+      }
 
       try {
         const res = await fetch('/api/problems', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ category, title, description }),
+          body: JSON.stringify({ category, title, description })
         });
 
         if (res.ok) {
           alert('🎉 Problem submitted successfully!');
           form.reset();
         } else {
-          alert('❌ Failed to submit problem.');
+          alert('❌ Failed to submit your problem.');
         }
-      } catch (error) {
-        alert('⚠️ Error submitting problem.');
-        console.error(error);
+      } catch (err) {
+        console.error(err);
+        alert('⚠️ Error submitting problem. Please try again later.');
       }
     });
   </script>

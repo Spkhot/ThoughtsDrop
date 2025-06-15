@@ -4,21 +4,211 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ThoughtDrop - View Problems</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet" />
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 1rem; background: #f0f4f8; }
-    h1 { text-align: center; color: #333; }
-    select, button, textarea, input { font-size: 1rem; padding: 0.5rem; margin: 0.3rem 0; }
-    .problem { background: #fff; margin-bottom: 1rem; padding: 1rem; border-radius: 6px; box-shadow: 0 2px 5px rgb(0 0 0 / 0.1); }
-    .problem-title { font-weight: bold; color: #2a2a72; }
-    .problem-description { margin: 0.5rem 0; }
-    .replies { margin-top: 0.5rem; padding-left: 1rem; border-left: 3px solid #2a2a72; }
-    .reply { margin-bottom: 0.3rem; font-style: italic; color: #555; }
-    .reply-form textarea { width: 100%; }
-    .reply-form button { background: #2a2a72; color: white; border: none; cursor: pointer; }
-    .reply-form button:hover { background: #1a1a50; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(135deg, #6228d7, #aa00ff);
+      color: #ffffff;
+      min-height: 100vh;
+      padding: 1rem;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.dark {
+      background: #1c1b29;
+      color: #f0f0f0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btns {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .btns button {
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btns button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      animation: fadeInDown 0.8s ease-in-out;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    select {
+      display: block;
+      margin: 0 auto 2rem auto;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      width: 90%;
+      max-width: 400px;
+      backdrop-filter: blur(6px);
+      transition: 0.3s ease;
+    }
+
+    select option {
+      background-color: #6228d7;
+      color: white;
+    }
+
+    body.dark select {
+      background-color: #333;
+      color: #f0f0f0;
+    }
+
+    #problemsContainer {
+      max-width: 800px;
+      margin: 0 auto;
+      animation: fadeInUp 1.2s ease-in;
+    }
+
+    .problem {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(6px);
+      padding: 1.2rem;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .problem-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 0.6rem;
+      color: #ffccff;
+    }
+
+    .problem-description {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: #f5eaff;
+    }
+
+    .replies {
+      margin-top: 1rem;
+      padding-left: 1rem;
+      border-left: 3px solid #ff7eb3;
+    }
+
+    .replies strong {
+      color: #ffeaff;
+    }
+
+    .reply {
+      font-style: italic;
+      margin: 0.3rem 0;
+      color: #fff5f8;
+    }
+
+    .reply-form {
+      margin-top: 1rem;
+    }
+
+    .reply-form textarea {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      resize: none;
+      margin-bottom: 0.6rem;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      backdrop-filter: blur(5px);
+    }
+
+    .reply-form button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background: #ff7eb3;
+      border: none;
+      border-radius: 20px;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .reply-form button:hover {
+      background: #ff559d;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.7rem; }
+      .btns { flex-direction: column; align-items: flex-end; }
+    }
   </style>
 </head>
 <body>
+
+  <header>
+    <div class="logo">ThoughtDrop</div>
+    <div class="btns">
+      <button onclick="location.href='index.html'">🏠 Home</button>
+      <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+    </div>
+  </header>
 
   <h1>View Problems</h1>
 
@@ -32,84 +222,88 @@
 
   <div id="problemsContainer"></div>
 
-<script>
-  const categorySelect = document.getElementById('categorySelect');
-  const problemsContainer = document.getElementById('problemsContainer');
+  <script>
+    const categorySelect = document.getElementById('categorySelect');
+    const problemsContainer = document.getElementById('problemsContainer');
 
-  async function fetchProblems(category) {
-  problemsContainer.innerHTML = 'Loading...';
-  try {
-    const res = await fetch(`/api/problems/${encodeURIComponent(category)}`);
-    if (!res.ok) throw new Error('Failed to fetch');
-    const problems = await res.json();
-    renderProblems(problems);
-  } catch (e) {
-    problemsContainer.innerHTML = '<p>Error loading problems.</p>';
-  }
-}
-
-
-  function renderProblems(problems) {
-    if (problems.length === 0) {
-      problemsContainer.innerHTML = '<p>No problems found in this category.</p>';
-      return;
+    async function fetchProblems(category) {
+      problemsContainer.innerHTML = '<p style="text-align:center;">Loading...</p>';
+      try {
+        const res = await fetch(`/api/problems/${encodeURIComponent(category)}`);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const problems = await res.json();
+        renderProblems(problems);
+      } catch (e) {
+        problemsContainer.innerHTML = '<p style="text-align:center;">Error loading problems.</p>';
+      }
     }
-    problemsContainer.innerHTML = '';
-    problems.forEach(problem => {
-      const div = document.createElement('div');
-      div.className = 'problem';
 
-      div.innerHTML = `
-        <div class="problem-title">${escapeHtml(problem.title)}</div>
-        <div class="problem-description">${escapeHtml(problem.description)}</div>
-        <div class="replies">
-          <strong>Replies:</strong>
-          <div>${problem.replies.length > 0 ? problem.replies.map(r => `<div class="reply">${escapeHtml(r)}</div>`).join('') : '<em>No replies yet.</em>'}</div>
-        </div>
-        <form class="reply-form" data-id="${problem._id}">
-          <textarea rows="2" placeholder="Write your reply..." required></textarea>
-          <button type="submit">Submit Reply</button>
-        </form>
-      `;
+    function renderProblems(problems) {
+      if (problems.length === 0) {
+        problemsContainer.innerHTML = '<p style="text-align:center;">No problems found in this category.</p>';
+        return;
+      }
 
-      problemsContainer.appendChild(div);
+      problemsContainer.innerHTML = '';
+      problems.forEach(problem => {
+        const div = document.createElement('div');
+        div.className = 'problem';
 
-      const form = div.querySelector('.reply-form');
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const replyText = form.querySelector('textarea').value.trim();
-        if (!replyText) return alert('Reply cannot be empty.');
+        div.innerHTML = `
+          <div class="problem-title">${escapeHtml(problem.title)}</div>
+          <div class="problem-description">${escapeHtml(problem.description)}</div>
+          <div class="replies">
+            <strong>Replies:</strong>
+            <div>${problem.replies.length > 0 ? problem.replies.map(r => `<div class="reply">${escapeHtml(r)}</div>`).join('') : '<em>No replies yet.</em>'}</div>
+          </div>
+          <form class="reply-form" data-id="${problem._id}">
+            <textarea rows="2" placeholder="Write your reply..." required></textarea>
+            <button type="submit">Submit Reply</button>
+          </form>
+        `;
 
-        try {
-          const res = await fetch(`/api/problems/${problem._id}/reply`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ reply: replyText }),
-          });
-          if (!res.ok) throw new Error('Failed to submit reply');
-          const updatedProblem = await res.json();
-          form.querySelector('textarea').value = '';
-          fetchProblems(categorySelect.value);  // Refresh list
-        } catch (err) {
-          alert('Error submitting reply.');
-        }
+        problemsContainer.appendChild(div);
+
+        const form = div.querySelector('.reply-form');
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const replyText = form.querySelector('textarea').value.trim();
+          if (!replyText) return alert('Reply cannot be empty.');
+
+          try {
+            const res = await fetch(`/api/problems/${problem._id}/reply`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ reply: replyText }),
+            });
+            if (!res.ok) throw new Error('Failed to submit reply');
+            form.querySelector('textarea').value = '';
+            fetchProblems(categorySelect.value);
+          } catch (err) {
+            alert('Error submitting reply.');
+          }
+        });
       });
+    }
+
+    function escapeHtml(text) {
+      return text.replace(/[&<>"']/g, (m) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[m]);
+    }
+
+    categorySelect.addEventListener('change', () => {
+      fetchProblems(categorySelect.value);
     });
-  }
 
-  function escapeHtml(text) {
-    return text.replace(/[&<>"']/g, (m) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    })[m]);
-  }
-
-  categorySelect.addEventListener('change', () => {
+    // Initial fetch
     fetchProblems(categorySelect.value);
-  });
 
-  // Initial fetch
-  fetchProblems(categorySelect.value);
-</script>
+    // Toggle Dark Mode
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
+  </script>
 
 </body>
 </html>
