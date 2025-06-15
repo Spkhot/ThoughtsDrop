@@ -6,81 +6,188 @@
   <title>ThoughtDrop - Anonymous Help Platform</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-light: linear-gradient(135deg, #a18cd1, #fbc2eb);
+      --bg-dark: linear-gradient(135deg, #1f1c2c, #928dab);
+      --card-bg-light: rgba(255, 255, 255, 0.9);
+      --card-bg-dark: rgba(30, 30, 30, 0.9);
+      --text-light: #2c2c2c;
+      --text-dark: #f5f5f5;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
       font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #a18cd1, #fbc2eb);
-      color: #2c2c2c;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: all 0.4s ease;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 2rem;
     }
+
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
     .container {
-      background: #ffffffcc;
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      background: var(--card-bg-light);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
       display: flex;
       flex-direction: row;
-      max-width: 1000px;
+      max-width: 1100px;
       width: 100%;
       overflow: hidden;
+      animation: fadeIn 1.2s ease;
     }
+
+    body.dark .container {
+      background: var(--card-bg-dark);
+    }
+
     .content {
       flex: 1;
-      padding: 2rem 2.5rem;
+      padding: 2.5rem 3rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      animation: slideInLeft 1s ease;
     }
+
     .content h1 {
-      font-size: 3rem;
-      color: #333;
+      font-size: 2.8rem;
       margin-bottom: 1rem;
     }
+
+    .typing {
+      display: inline-block;
+      border-right: 2px solid;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3s steps(30, end), blink 0.8s infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
     .content p {
       font-size: 1.2rem;
       line-height: 1.6;
-      color: #444;
       margin-bottom: 2rem;
     }
+
     .buttons {
       display: flex;
       gap: 1.2rem;
       flex-wrap: wrap;
     }
+
     a.button {
-      padding: 0.9rem 2rem;
+      padding: 1rem 2rem;
       border-radius: 40px;
-      background-color: #ff7eb3;
+      background: linear-gradient(90deg, #ff7eb3, #ff758c);
       color: white;
       text-decoration: none;
       font-weight: bold;
       transition: all 0.3s ease;
       font-size: 1.1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
+
     a.button:hover {
       background-color: #ff559d;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+      transform: translateY(-2px);
     }
+
+    .dark a.button {
+      color: white;
+    }
+
     .image-section {
       flex: 1;
       background: url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=700&q=80') no-repeat center center/cover;
     }
+
     footer {
       margin-top: 2rem;
       text-align: center;
       font-size: 0.9rem;
-      color: #444;
     }
 
+    .dark-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 8px 14px;
+      border-radius: 25px;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+
+    .dark-toggle:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      margin-top: 2rem;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 1rem;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 80px;
+      position: relative;
+    }
+
+    .testimonial-slide {
+      position: absolute;
+      animation: slide 15s infinite;
+    }
+
+    @keyframes slide {
+      0% { top: 0; }
+      20% { top: 0; }
+      25% { top: -80px; }
+      45% { top: -80px; }
+      50% { top: -160px; }
+      70% { top: -160px; }
+      75% { top: -240px; }
+      95% { top: -240px; }
+      100% { top: 0; }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(-40px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -89,15 +196,9 @@
         height: 250px;
         background-position: top;
       }
-      .content h1 {
-        font-size: 2.3rem;
-      }
-      .content p {
-        font-size: 1.05rem;
-      }
       .buttons {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
       }
       a.button {
         width: 100%;
@@ -108,20 +209,51 @@
 </head>
 <body>
 
+  <div class="dark-toggle" onclick="toggleDarkMode()">🌙</div>
+
   <div class="container">
     <div class="content">
-      <h1>Welcome to ThoughtDrop</h1>
+      <h1><span class="typing">Welcome to ThoughtDrop</span></h1>
       <p>
         ThoughtDrop is your anonymous, safe space to talk about anything — relationships, stress, college life, mental health, or even career anxiety. No judgment. No login. Just real support from real people.
       </p>
       <div class="buttons">
-        <a href="view.html" class="button">📖 View Problems</a>
-        <a href="ask.html" class="button">📝 Ask a Problem</a>
+        <a href="view.html" class="button" onclick="playFeedback()">📖 View Problems</a>
+        <a href="ask.html" class="button" onclick="playFeedback()">📝 Ask a Problem</a>
       </div>
+
+      <div class="testimonials">
+        <div class="testimonial-slide">
+          <div>💬 “Finally a place I can talk freely.” – Student, Delhi</div>
+          <div>💬 “Helped me cope with exam stress.” – Anonymous</div>
+          <div>💬 “Better than any advice forum I’ve seen.” – College Freshman</div>
+          <div>💬 “I love the simplicity and kindness here.” – User #134</div>
+        </div>
+      </div>
+
       <footer>&copy; 2025 ThoughtDrop. All rights reserved.</footer>
     </div>
     <div class="image-section" aria-hidden="true"></div>
   </div>
+
+  <audio id="tapSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" preload="auto"></audio>
+
+  <script>
+    // 🌗 Toggle dark mode
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      const toggle = document.querySelector('.dark-toggle');
+      toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+    }
+
+    // 📳 Mobile feedback
+    function playFeedback() {
+      if (navigator.vibrate) navigator.vibrate(50);
+      const sound = document.getElementById("tapSound");
+      sound.currentTime = 0;
+      sound.play();
+    }
+  </script>
 
 </body>
 </html>
