@@ -26,10 +26,7 @@
       background: var(--gradient-light);
       color: var(--text-color-light);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
       transition: background 0.4s ease;
       position: relative;
     }
@@ -44,8 +41,8 @@
       backdrop-filter: blur(15px);
       border-radius: 20px;
       padding: 3rem;
-      width: 100%;
       max-width: 1000px;
+      margin: 0 auto;
       box-shadow: 0 20px 30px rgba(0,0,0,0.3);
       animation: fadeIn 1.2s ease;
     }
@@ -53,51 +50,29 @@
     body.dark .container {
       background: var(--card-bg-dark);
     }
+
     .logo {
-  position: absolute;
-  top: 20px;
-  left: 30px;
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #ffffff;
-  font-family: 'Comfortaa', cursive;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
-  z-index: 10;
-}
-
-.logo span {
-  color: #ffccff;
-}
-
-.logo .tagline {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: #eee;
-  opacity: 0.8;
-  margin-top: 2px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-}
-
-
-
-    .header {
       position: absolute;
       top: 20px;
       left: 20px;
-      font-family: 'Comfortaa', cursive;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: bold;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 8px 16px;
-      border-radius: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      color: #ffffff;
+      font-family: 'Comfortaa', cursive;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
     }
 
-    .header span {
-      display: block;
+    .logo span {
+      color: #ffccff;
+    }
+
+    .logo .tagline {
       font-size: 0.8rem;
-      font-weight: normal;
+      font-weight: 400;
+      color: #eee;
       opacity: 0.8;
+      margin-top: 2px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
     }
 
     .dark-toggle {
@@ -121,8 +96,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 2rem;
       flex-wrap: wrap;
+      gap: 2rem;
     }
 
     .hero-text {
@@ -132,17 +107,15 @@
 
     .hero-logo {
       flex: 1;
-      min-width: 200px;
       text-align: center;
     }
 
     .hero-logo img {
-      max-width: 180px;
+      max-width: 200px;
       height: auto;
       border-radius: 20px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
       animation: float 4s ease-in-out infinite;
-      margin-top: 100px;
     }
 
     h1 {
@@ -263,38 +236,69 @@
       50% { transform: translateY(-8px); }
     }
 
+    /* Responsive */
     @media (max-width: 768px) {
-      .hero-section {
-        flex-direction: column-reverse;
-        align-items: center;
-      }
-    @media (max-width: 500px) {
-  .logo {
-    font-size: 1.3rem;
-  }
-
-  .logo .tagline {
-    font-size: 0.7rem;
-  }
-}
-
       h1 {
-        font-size: 2.1rem;
+        font-size: 2.2rem;
         text-align: center;
       }
 
-      .buttons {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      a.button {
-        width: 100%;
+      .hero-section {
+        flex-direction: column-reverse;
         text-align: center;
       }
 
       .hero-logo img {
-        max-width: 150px;
+        max-width: 160px;
+        margin-bottom: 20px;
+      }
+
+      .buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      a.button {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 2rem 1rem;
+      }
+
+      .logo {
+        font-size: 1.3rem;
+        left: 10px;
+      }
+
+      .logo .tagline {
+        font-size: 0.7rem;
+      }
+
+      .dark-toggle {
+        top: 15px;
+        right: 15px;
+        font-size: 1.3rem;
+      }
+
+      h1 {
+        font-size: 1.9rem;
+      }
+
+      p.description {
+        font-size: 1rem;
+      }
+
+      .inspire {
+        font-size: 0.9rem;
+      }
+
+      footer {
+        font-size: 0.8rem;
       }
     }
   </style>
@@ -302,9 +306,9 @@
 <body>
 
   <div class="logo">
-  Thought<span>Drop</span>
-  <div class="tagline">Speak Freely, Stay Anonymous</div>
-</div>
+    Thought<span>Drop</span>
+    <div class="tagline">Speak Freely, Stay Anonymous</div>
+  </div>
 
   <div class="dark-toggle" onclick="toggleDarkMode()">🌙</div>
 
