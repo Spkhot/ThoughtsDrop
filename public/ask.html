@@ -3,100 +3,122 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ask a Problem - ThoughtDrop</title>
+  <title>Ask Anonymously | ThoughtDrop</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #1d2b64, #f8cdda);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
     }
-    h2 {
-      color: #333;
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 500px;
+    }
+    h1 {
       text-align: center;
+      color: #333;
+      margin-bottom: 1.5rem;
     }
     label {
-      display: block;
-      margin: 12px 0 6px;
       font-weight: bold;
+      display: block;
+      margin-top: 1rem;
+      color: #444;
     }
-    input, textarea, select, button {
+    input, textarea, select {
       width: 100%;
-      padding: 10px;
-      border-radius: 6px;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
       border: 1px solid #ccc;
+      border-radius: 8px;
       font-size: 1rem;
     }
     button {
-      background: #4CAF50;
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.9rem;
+      background-color: #4e54c8;
       color: white;
-      margin-top: 20px;
       border: none;
+      border-radius: 8px;
+      font-size: 1rem;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
     button:hover {
-      background: #45a049;
+      background-color: #373b9f;
     }
     .message {
-      margin-top: 20px;
-      font-weight: bold;
-      color: green;
       text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h2>Ask Your Problem Anonymously</h2>
+  <div class="container">
+    <h1>Drop Your Problem</h1>
+    <form id="problemForm">
+      <label for="category">Select a Category</label>
+      <select id="category" required>
+        <option value="">-- Choose --</option>
+        <option value="relationship">Relationship</option>
+        <option value="study">Study</option>
+        <option value="college life">College Life</option>
+        <option value="job">Job</option>
+        <option value="mental health">Mental Health</option>
+      </select>
 
-  <form id="problemForm">
-    <label for="title">Title</label>
-    <input type="text" id="title" required>
+      <label for="description">Describe Your Problem</label>
+      <textarea id="description" rows="6" required placeholder="Type your issue anonymously..."></textarea>
 
-    <label for="description">Description</label>
-    <textarea id="description" rows="6" required></textarea>
-
-    <label for="category">Category</label>
-    <select id="category" required>
-      <option value="">-- Select Category --</option>
-      <option value="relationship">Relationship</option>
-      <option value="study">Study</option>
-      <option value="college life">College Life</option>
-      <option value="job">Job</option>
-      <option value="mental health">Mental Health</option>
-    </select>
-
-    <button type="submit">Submit Problem</button>
-    <div class="message" id="message"></div>
-  </form>
+      <button type="submit">Submit Anonymously</button>
+      <div class="message" id="msg"></div>
+    </form>
+  </div>
 
   <script>
-    const form = document.getElementById('problemForm');
-    const messageDiv = document.getElementById('message');
+    const form = document.getElementById("problemForm");
+    const msg = document.getElementById("msg");
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      msg.textContent = "Submitting...";
 
-      const title = document.getElementById('title').value.trim();
-      const description = document.getElementById('description').value.trim();
-      const category = document.getElementById('category').value;
+      const category = document.getElementById("category").value.trim();
+      const description = document.getElementById("description").value.trim();
 
       try {
-        const res = await fetch('/api/problems', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, description, category }),
+        const res = await fetch("/api/problems", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ category, description }),
         });
 
-        if (!res.ok) throw new Error("Submission failed");
-
         const data = await res.json();
-        messageDiv.textContent = "✅ Problem submitted successfully!";
-        form.reset();
+
+        if (res.ok) {
+          msg.style.color = "green";
+          msg.textContent = "✅ Problem submitted successfully!";
+          form.reset();
+        } else {
+          msg.style.color = "red";
+          msg.textContent = "❌ " + (data.message || "Submission failed.");
+        }
       } catch (err) {
+        msg.style.color = "red";
+        msg.textContent = "❌ Error submitting problem.";
         console.error(err);
-        messageDiv.textContent = "❌ Failed to submit problem. Try again.";
-        messageDiv.style.color = "red";
       }
     });
   </script>
