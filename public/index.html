@@ -45,7 +45,7 @@
       border-radius: 20px;
       padding: 3rem;
       width: 100%;
-      max-width: 900px;
+      max-width: 1000px;
       box-shadow: 0 20px 30px rgba(0,0,0,0.3);
       animation: fadeIn 1.2s ease;
     }
@@ -53,6 +53,32 @@
     body.dark .container {
       background: var(--card-bg-dark);
     }
+    .logo {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #ffffff;
+  font-family: 'Comfortaa', cursive;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+  z-index: 10;
+}
+
+.logo span {
+  color: #ffccff;
+}
+
+.logo .tagline {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #eee;
+  opacity: 0.8;
+  margin-top: 2px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+
 
     .header {
       position: absolute;
@@ -89,6 +115,34 @@
 
     .dark-toggle:hover {
       background: rgba(255, 255, 255, 0.4);
+    }
+
+    .hero-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .hero-logo {
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .hero-logo img {
+      max-width: 180px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      animation: float 4s ease-in-out infinite;
+      margin-top: 100px;
     }
 
     h1 {
@@ -204,7 +258,31 @@
       100% { top: 0; }
     }
 
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
     @media (max-width: 768px) {
+      .hero-section {
+        flex-direction: column-reverse;
+        align-items: center;
+      }
+    @media (max-width: 500px) {
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .logo .tagline {
+    font-size: 0.7rem;
+  }
+}
+
+      h1 {
+        font-size: 2.1rem;
+        text-align: center;
+      }
+
       .buttons {
         flex-direction: column;
         align-items: stretch;
@@ -215,31 +293,39 @@
         text-align: center;
       }
 
-      h1 {
-        font-size: 2.1rem;
+      .hero-logo img {
+        max-width: 150px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    ThoughtDrop
-    <span>Speak Freely, Stay Anonymous</span>
-  </div>
+  <div class="logo">
+  Thought<span>Drop</span>
+  <div class="tagline">Speak Freely, Stay Anonymous</div>
+</div>
 
   <div class="dark-toggle" onclick="toggleDarkMode()">🌙</div>
 
   <div class="container">
-    <h1><span class="typing">Welcome to ThoughtDrop</span></h1>
-    <p class="description">
-      Your safe and anonymous space to express what’s on your mind — from relationships and stress to career anxiety and life struggles.
-    </p>
-    <div class="inspire">💬 Be heard, be free. No login. No judgment.</div>
+    <div class="hero-section">
+      <div class="hero-text">
+        <h1><span class="typing">Welcome to ThoughtDrop</span></h1>
+        <p class="description">
+          Your safe and anonymous space to express what’s on your mind — from relationships and stress to career anxiety and life struggles.
+        </p>
+        <div class="inspire">💬 Be heard, be free. No login. No judgment.</div>
 
-    <div class="buttons">
-      <a href="view.html" class="button" onclick="playFeedback()">📖 View Problems</a>
-      <a href="ask.html" class="button" onclick="playFeedback()">📝 Ask a Problem</a>
+        <div class="buttons">
+          <a href="view.html" class="button" onclick="playFeedback()">📖 View Problems</a>
+          <a href="ask.html" class="button" onclick="playFeedback()">📝 Ask a Problem</a>
+        </div>
+      </div>
+
+      <div class="hero-logo">
+        <img src="images/logo.png" alt="ThoughtDrop Logo" />
+      </div>
     </div>
 
     <div class="testimonials">
