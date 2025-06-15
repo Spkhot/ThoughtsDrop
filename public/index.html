@@ -2,126 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ThoughtDrop - Anonymous Help Platform</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>View Problems | ThoughtDrop</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
-      font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #a18cd1, #fbc2eb);
-      color: #2c2c2c;
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
+      color: #fff;
     }
-    .container {
-      background: #ffffffcc;
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: row;
-      max-width: 1000px;
-      width: 100%;
-      overflow: hidden;
-    }
-    .content {
-      flex: 1;
-      padding: 2rem 2.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .content h1 {
-      font-size: 3rem;
-      color: #333;
-      margin-bottom: 1rem;
-    }
-    .content p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      color: #444;
+    h1 {
+      text-align: center;
       margin-bottom: 2rem;
     }
-    .buttons {
+    .problems {
       display: flex;
-      gap: 1.2rem;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 800px;
+      margin: auto;
     }
-    a.button {
-      padding: 0.9rem 2rem;
-      border-radius: 40px;
-      background-color: #ff7eb3;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    .card {
+      background: #ffffff;
+      color: #333;
+      padding: 1.2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s ease;
     }
-    a.button:hover {
-      background-color: #ff559d;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    .card:hover {
+      transform: scale(1.02);
     }
-    .image-section {
-      flex: 1;
-      background: url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=700&q=80') no-repeat center center/cover;
-    }
-    footer {
-      margin-top: 2rem;
-      text-align: center;
+    .category {
       font-size: 0.9rem;
+      font-weight: bold;
+      padding: 0.3rem 0.6rem;
+      display: inline-block;
+      border-radius: 5px;
+      margin-bottom: 0.8rem;
+      background-color: #eee;
       color: #444;
     }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-      .image-section {
-        height: 250px;
-        background-position: top;
-      }
-      .content h1 {
-        font-size: 2.3rem;
-      }
-      .content p {
-        font-size: 1.05rem;
-      }
-      .buttons {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      a.button {
-        width: 100%;
-        text-align: center;
-      }
+    .description {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .empty {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      color: #eee;
     }
   </style>
 </head>
 <body>
+  <h1>💬 Anonymous Problems</h1>
+  <div class="problems" id="problems"></div>
+  <div class="empty" id="emptyMsg" style="display:none;">No problems posted yet.</div>
 
-  <div class="container">
-    <div class="content">
-      <h1>Welcome to ThoughtDrop</h1>
-      <p>
-        ThoughtDrop is your anonymous, safe space to talk about anything — relationships, stress, college life, mental health, or even career anxiety. No judgment. No login. Just real support from real people.
-      </p>
-      <div class="buttons">
-        <a href="view.html" class="button">📖 View Problems</a>
-        <a href="ask.html" class="button">📝 Ask a Problem</a>
-      </div>
-      <footer>&copy; 2025 ThoughtDrop. All rights reserved.</footer>
-    </div>
-    <div class="image-section" aria-hidden="true"></div>
-  </div>
+  <script>
+    async function loadProblems() {
+      const container = document.getElementById("problems");
+      const emptyMsg = document.getElementById("emptyMsg");
 
+      try {
+        const res = await fetch("/api/problems");
+        const data = await res.json();
+
+        if (res.ok && data.length > 0) {
+          data.reverse().forEach((problem) => {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            const cat = document.createElement("div");
+            cat.className = "category";
+            cat.textContent = problem.category;
+
+            const desc = document.createElement("div");
+            desc.className = "description";
+            desc.textContent = problem.description;
+
+            card.appendChild(cat);
+            card.appendChild(desc);
+            container.appendChild(card);
+          });
+        } else {
+          emptyMsg.style.display = "block";
+        }
+      } catch (err) {
+        console.error("Error fetching problems:", err);
+        emptyMsg.textContent = "Failed to load problems.";
+        emptyMsg.style.display = "block";
+      }
+    }
+
+    loadProblems();
+  </script>
 </body>
 </html>
