@@ -46,20 +46,17 @@ app.post('/ask', async (req, res) => {
   }
 });
 
-app.post('/api/problems/:id/reply', async (req, res) => {
-  const { reply } = req.body;
+app.post('/api/problems', async (req, res) => {
+  const { title, description, category } = req.body;
   try {
-    const problem = await Problem.findById(req.params.id);
-    if (!problem) return res.status(404).json({ error: 'Not found' });
-
-    problem.replies.push(reply);
-    await problem.save();
-
-    res.json(problem);
+    const newProblem = new Problem({ title, description, category, replies: [] });
+    await newProblem.save();
+    res.status(201).json(newProblem);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to submit reply' });
+    res.status(500).json({ error: 'Failed to submit problem' });
   }
 });
+
 
 // Fallback for SPA routing (optional)
 app.get('*', (req, res) => {
