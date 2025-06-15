@@ -2,103 +2,176 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ask a Problem - ThoughtDrop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ThoughtDrop - Ask a Problem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-    }
-    h2 {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(to right, #c471f5, #fa71cd);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
       color: #333;
-      text-align: center;
     }
-    label {
-      display: block;
-      margin: 12px 0 6px;
-      font-weight: bold;
-    }
-    input, textarea, select, button {
+
+    .container {
+      background: #ffffffee;
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 2rem 2.5rem;
+      max-width: 600px;
       width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      animation: fadeIn 1s ease-in-out;
     }
-    button {
-      background: #4CAF50;
-      color: white;
-      margin-top: 20px;
-      border: none;
-      cursor: pointer;
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    button:hover {
-      background: #45a049;
-    }
-    .message {
-      margin-top: 20px;
-      font-weight: bold;
-      color: green;
+
+    h1 {
       text-align: center;
+      color: #5b0e88;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p.intro {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 2rem;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 1rem;
+      color: #333;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: #fdfdfd;
+      transition: box-shadow 0.3s ease;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(195, 113, 245, 0.3);
+      border-color: #c471f5;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 2rem;
+      background: #c471f5;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    button:hover {
+      background: #a85ae0;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      p.intro { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
-  <h2>Ask Your Problem Anonymously</h2>
 
-  <form id="problemForm">
-    <label for="title">Title</label>
-    <input type="text" id="title" required>
+  <div class="container">
+    <h1>Ask Your Problem</h1>
+    <p class="intro">
+      This is your safe space. Don’t worry about judgment or identity. Just share what’s troubling you — whether it’s about studies, relationships, mental health, or life struggles.
+    </p>
 
-    <label for="description">Description</label>
-    <textarea id="description" rows="6" required></textarea>
+    <form id="problemForm">
+      <label for="category">Choose a category:</label>
+      <select id="category" required>
+        <option value="" disabled selected>Select category</option>
+        <option value="relationship">Relationship</option>
+        <option value="study">Study</option>
+        <option value="college life">College Life</option>
+        <option value="job problems">Job Problems</option>
+      </select>
 
-    <label for="category">Category</label>
-    <select id="category" required>
-      <option value="">-- Select Category --</option>
-      <option value="relationship">Relationship</option>
-      <option value="study">Study</option>
-      <option value="college life">College Life</option>
-      <option value="job">Job</option>
-      <option value="mental health">Mental Health</option>
-    </select>
+      <label for="title">Give it a title:</label>
+      <input type="text" id="title" required placeholder="Short summary of your problem" />
 
-    <button type="submit">Submit Problem</button>
-    <div class="message" id="message"></div>
-  </form>
+      <label for="description">Describe your issue:</label>
+      <textarea id="description" rows="5" required placeholder="Write here whatever you feel... we're listening ❤️"></textarea>
+
+      <button type="submit">📨 Submit Problem</button>
+    </form>
+
+    <footer>&copy; 2025 ThoughtDrop. You are not alone — we’re here for you.</footer>
+  </div>
 
   <script>
     const form = document.getElementById('problemForm');
-    const messageDiv = document.getElementById('message');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      const category = document.getElementById('category').value;
       const title = document.getElementById('title').value.trim();
       const description = document.getElementById('description').value.trim();
-      const category = document.getElementById('category').value;
+
+      if (!category) return alert('Please select a category.');
+      if (!title) return alert('Please enter a title.');
+      if (!description) return alert('Please enter a description.');
 
       try {
         const res = await fetch('/api/problems', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, description, category }),
+          body: JSON.stringify({ category, title, description }),
         });
 
-        if (!res.ok) throw new Error("Submission failed");
-
-        const data = await res.json();
-        messageDiv.textContent = "✅ Problem submitted successfully!";
-        form.reset();
-      } catch (err) {
-        console.error(err);
-        messageDiv.textContent = "❌ Failed to submit problem. Try again.";
-        messageDiv.style.color = "red";
+        if (res.ok) {
+          alert('🎉 Problem submitted successfully!');
+          form.reset();
+        } else {
+          alert('❌ Failed to submit problem.');
+        }
+      } catch (error) {
+        alert('⚠️ Error submitting problem.');
+        console.error(error);
       }
     });
   </script>
+
 </body>
 </html>
