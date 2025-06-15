@@ -4,8 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ThoughtDrop - Anonymous Help Platform</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Prompt:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --gradient-light: linear-gradient(135deg, #667eea, #764ba2);
+      --gradient-dark: linear-gradient(135deg, #141e30, #243b55);
+      --text-color-light: #ffffff;
+      --text-color-dark: #f0f0f0;
+      --card-bg-light: rgba(255, 255, 255, 0.12);
+      --card-bg-dark: rgba(20, 20, 20, 0.6);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -13,93 +22,159 @@
     }
 
     body {
-      font-family: 'Prompt', sans-serif;
-      background: linear-gradient(120deg, #3f2b96, #a8c0ff);
-      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      background: var(--gradient-light);
+      color: var(--text-color-light);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 2rem;
-      flex-direction: column;
-      animation: fadeIn 2s ease-in-out;
+      transition: background 0.4s ease;
+      position: relative;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .logo {
-      position: absolute;
-      top: 20px;
-      left: 30px;
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: #fff;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
-    }
-
-    .logo span {
-      color: #ffccff;
+    body.dark {
+      background: var(--gradient-dark);
+      color: var(--text-color-dark);
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      background: var(--card-bg-light);
+      backdrop-filter: blur(15px);
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      padding: 2.5rem;
+      padding: 3rem;
       width: 100%;
-      max-width: 800px;
-      text-align: center;
+      max-width: 900px;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+      animation: fadeIn 1.2s ease;
+    }
+
+    body.dark .container {
+      background: var(--card-bg-dark);
+    }
+
+    .header {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-family: 'Comfortaa', cursive;
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 8px 16px;
+      border-radius: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .header span {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: normal;
+      opacity: 0.8;
+    }
+
+    .dark-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 10px 16px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+
+    .dark-toggle:hover {
+      background: rgba(255, 255, 255, 0.4);
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 2.8rem;
       margin-bottom: 1rem;
-      color: #fff;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      animation: slideDown 1s ease forwards;
     }
 
-    .slogan {
-      font-size: 1.2rem;
-      color: #f0f0f0;
+    .typing {
+      display: inline-block;
+      border-right: 2px solid;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 2.8s steps(30, end), blink 0.8s infinite;
+    }
+
+    p.description {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.5s forwards;
+    }
+
+    .inspire {
+      font-style: italic;
+      font-size: 1rem;
+      color: #e6e6e6;
       margin-bottom: 2rem;
-      line-height: 1.6;
+      opacity: 0;
+      animation: fadeInUp 1s ease 1s forwards;
     }
 
     .buttons {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 1.5s forwards;
+      opacity: 0;
     }
 
     a.button {
       padding: 0.9rem 2rem;
-      border-radius: 30px;
-      background: #ff7eb3;
-      color: #fff;
+      border-radius: 50px;
+      background: linear-gradient(90deg, #ff758c, #ff7eb3);
+      color: white;
       text-decoration: none;
       font-weight: bold;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       transition: all 0.3s ease;
-      font-size: 1.1rem;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
 
     a.button:hover {
-      background: #ff559d;
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      transform: translateY(-3px);
+      background: linear-gradient(90deg, #ff4e9b, #ff6a94);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
     }
 
-    .latest-section {
+    .testimonials {
+      margin-top: 2.2rem;
       background: rgba(255, 255, 255, 0.1);
-      padding: 1.5rem;
-      border-radius: 15px;
-      animation: fadeInUp 1.5s ease forwards;
+      padding: 1rem;
+      border-radius: 12px;
+      height: 80px;
+      position: relative;
+      overflow: hidden;
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+
+    .testimonial-slide {
+      position: absolute;
+      animation: slide 18s infinite;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     @keyframes fadeInUp {
@@ -107,92 +182,93 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .latest-section h2 {
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-      color: #fff;
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    #latest-list {
-      list-style: none;
-      padding-left: 1rem;
-      color: #f1f1f1;
-      max-height: 200px;
-      overflow-y: auto;
-      text-align: left;
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
     }
 
-    #latest-list li {
-      margin-bottom: 0.8rem;
-      padding-left: 0.5rem;
-      border-left: 3px solid #ff9db3;
-      line-height: 1.5;
+    @keyframes blink {
+      50% { border-color: transparent }
     }
 
-    footer {
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #ddd;
+    @keyframes slide {
+      0% { top: 0; }
+      25% { top: -80px; }
+      50% { top: -160px; }
+      75% { top: -240px; }
+      100% { top: 0; }
     }
 
     @media (max-width: 768px) {
-      h1 {
-        font-size: 2.2rem;
-      }
-
-      .slogan {
-        font-size: 1rem;
+      .buttons {
+        flex-direction: column;
+        align-items: stretch;
       }
 
       a.button {
         width: 100%;
         text-align: center;
       }
+
+      h1 {
+        font-size: 2.1rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="logo">Thought<span>Drop</span></div>
+  <div class="header">
+    ThoughtDrop
+    <span>Speak Freely, Stay Anonymous</span>
+  </div>
+
+  <div class="dark-toggle" onclick="toggleDarkMode()">🌙</div>
 
   <div class="container">
-    <h1>Welcome to ThoughtDrop</h1>
-    <p class="slogan">
-      Feeling overwhelmed? Share your thoughts anonymously and get support without judgment.  
-      Your voice matters here. Let it be heard — safely.
+    <h1><span class="typing">Welcome to ThoughtDrop</span></h1>
+    <p class="description">
+      Your safe and anonymous space to express what’s on your mind — from relationships and stress to career anxiety and life struggles.
     </p>
+    <div class="inspire">💬 Be heard, be free. No login. No judgment.</div>
 
     <div class="buttons">
-      <a href="view.html" class="button">📖 View Problems</a>
-      <a href="ask.html" class="button">📝 Ask a Problem</a>
+      <a href="view.html" class="button" onclick="playFeedback()">📖 View Problems</a>
+      <a href="ask.html" class="button" onclick="playFeedback()">📝 Ask a Problem</a>
     </div>
 
-    <div class="latest-section">
-      <h2>🆕 Latest Anonymous Posts</h2>
-      <ul id="latest-list">Loading...</ul>
+    <div class="testimonials">
+      <div class="testimonial-slide">
+        <div>“This platform helped me open up without fear.” – Anonymous</div>
+        <div>“Felt like a friend I never had.” – College Student</div>
+        <div>“It’s comforting to know I’m not alone.” – User #422</div>
+        <div>“Simple. Supportive. Safe.” – User #198</div>
+      </div>
     </div>
 
     <footer>&copy; 2025 ThoughtDrop. All rights reserved.</footer>
   </div>
 
-  <script>
-    fetch('/api/problems')
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById("latest-list");
-        if (!Array.isArray(data) || data.length === 0) {
-          list.innerHTML = "<li>No posts yet. Be the first to share!</li>";
-          return;
-        }
+  <audio id="tapSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" preload="auto"></audio>
 
-        const latest = data.slice(-3).reverse();
-        list.innerHTML = latest.map(p =>
-          `<li>${p.text.length > 100 ? p.text.slice(0, 100) + "..." : p.text}</li>`
-        ).join('');
-      })
-      .catch(() => {
-        document.getElementById("latest-list").innerHTML = "<li>Unable to load posts.</li>";
-      });
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      const toggle = document.querySelector('.dark-toggle');
+      toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+    }
+
+    function playFeedback() {
+      if (navigator.vibrate) navigator.vibrate(50);
+      const sound = document.getElementById("tapSound");
+      sound.currentTime = 0;
+      sound.play();
+    }
   </script>
 
 </body>

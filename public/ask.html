@@ -14,8 +14,8 @@
 
     body {
       font-family: 'Prompt', sans-serif;
-      background: linear-gradient(135deg, #6228d7, #aa00ff);
-      color: #ffffff;
+      background: linear-gradient(to right, #8360c3, #2ebf91);
+      color: #f5f5f5;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -44,7 +44,7 @@
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.09);
       backdrop-filter: blur(12px);
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
@@ -70,7 +70,7 @@
       text-align: center;
       font-size: 1rem;
       margin-bottom: 2rem;
-      color: #f2e6ff;
+      color: #eaeaea;
     }
 
     label {
@@ -88,25 +88,25 @@
       border-radius: 10px;
       border: none;
       margin-bottom: 1rem;
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
       transition: all 0.3s ease;
       backdrop-filter: blur(3px);
     }
 
     option {
-      background-color: #6528d7;
+      background-color: #2e2e3a;
       color: #ffffff;
     }
 
     select:focus, input:focus, textarea:focus {
       outline: none;
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.25);
       box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
     }
 
     select::placeholder, input::placeholder, textarea::placeholder {
-      color: #f2dfff;
+      color: #dddddd;
     }
 
     button {
@@ -134,7 +134,7 @@
       margin-top: 2rem;
       text-align: center;
       font-size: 0.9rem;
-      color: #f0e6ff;
+      color: #f0f0f0;
     }
 
     @media (max-width: 500px) {
@@ -150,7 +150,7 @@
   <div class="container">
     <h1>Ask a Problem</h1>
     <p class="intro">
-      This is your safe space. Don’t worry about judgment or identity. Just share what’s troubling you — studies, relationships, or anything in life.
+      Share your thoughts anonymously. Be it relationships, college stress, or life struggles — we’re here to listen.
     </p>
 
     <form id="problemForm">
@@ -163,11 +163,11 @@
         <option value="job problems">Job Problems</option>
       </select>
 
-      <label for="title">Give it a title:</label>
-      <input type="text" id="title" required placeholder="Short summary of your problem" />
+      <label for="title">Title:</label>
+      <input type="text" id="title" placeholder="Short summary of your problem" required />
 
       <label for="description">Describe your issue:</label>
-      <textarea id="description" rows="5" required placeholder="Write here whatever you feel... we're listening ❤️"></textarea>
+      <textarea id="description" rows="5" placeholder="Write here whatever you feel... we're listening ❤️" required></textarea>
 
       <button type="submit">📨 Submit Problem</button>
     </form>
