@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ThoughtDrop - Anonymous Help Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+      color: #2c2c2c;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    .container {
+      background: #ffffffcc;
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: row;
+      max-width: 1000px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .content {
+      flex: 1;
+      padding: 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .content h1 {
+      font-size: 3rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+    .content p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #444;
+      margin-bottom: 2rem;
+    }
+    .buttons {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+    a.button {
+      padding: 0.9rem 2rem;
+      border-radius: 40px;
+      background-color: #ff7eb3;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    a.button:hover {
+      background-color: #ff559d;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    }
+    .image-section {
+      flex: 1;
+      background: url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=700&q=80') no-repeat center center/cover;
+    }
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .image-section {
+        height: 250px;
+        background-position: top;
+      }
+      .content h1 {
+        font-size: 2.3rem;
+      }
+      .content p {
+        font-size: 1.05rem;
+      }
+      .buttons {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      a.button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="content">
+      <h1>Welcome to ThoughtDrop</h1>
+      <p>
+        ThoughtDrop is your anonymous, safe space to talk about anything — relationships, stress, college life, mental health, or even career anxiety. No judgment. No login. Just real support from real people.
+      </p>
+      <div class="buttons">
+        <a href="view.html" class="button">📖 View Problems</a>
+        <a href="ask.html" class="button">📝 Ask a Problem</a>
+      </div>
+      <footer>&copy; 2025 ThoughtDrop. All rights reserved.</footer>
+    </div>
+    <div class="image-section" aria-hidden="true"></div>
+  </div>
+
+</body>
+</html>
