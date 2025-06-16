@@ -2,64 +2,192 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ThoughtDrop - View Problems</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet" />
   <style>
-    /* ------------------- */
-    /*  1. Global & Theme  */
-    /* ------------------- */
-    :root {
-      --grad-start: #8360c3;
-      --grad-end: #2ebf91;
-      --primary-accent: #ff7eb3;
-      --primary-accent-hover: #ff559d;
-      --text-light: #f0f0f0;
-      --text-dark: #ffffff;
-      --bg-glass: rgba(255, 255, 255, 0.1);
-      --bg-glass-med: rgba(255, 255, 255, 0.07);
-      --bg-glass-focus: rgba(255, 255, 255, 0.2);
-      --border-glass: rgba(255, 255, 255, 0.2);
-      --shadow-color: rgba(0, 0, 0, 0.25);
-      --font-family: 'Poppins', sans-serif;
-      --border-radius-main: 20px;
-      --border-radius-input: 12px;
-    }
-
-    /* Dark Theme Variable Overrides */
-    [data-theme="dark"] {
-      --grad-start: #1e133a;
-      --grad-end: #1c2e27;
-      --text-light: #c0c0c0;
-      --text-dark: #e9e9e9;
-      --bg-glass: rgba(42, 40, 60, 0.5);
-      --bg-glass-med: rgba(42, 40, 60, 0.3);
-      --bg-glass-focus: rgba(52, 50, 70, 0.7);
-      --border-glass: rgba(255, 255, 255, 0.1);
-      --shadow-color: rgba(0, 0, 0, 0.4);
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(135deg, #6228d7, #aa00ff);
+      color: #ffffff;
+      min-height: 100vh;
+      padding: 1rem;
+      transition: background 0.5s, color 0.5s;
     }
 
-    body {
-      font-family: var(--font-family);
-      background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
-      background-attachment: fixed;
-      color: var(--text-light);
-      min-height: 100vh;
+    body.dark {
+      background: #1c1b29;
+      color: #f0f0f0;
+    }
+
+    header {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      transition: background 0.4s ease;
-      animation: fadeIn 1s ease-in-out;
+      padding: 1rem 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btns {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .btns button {
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btns button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      animation: fadeInDown 0.8s ease-in-out;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    select {
+      display: block;
+      margin: 0 auto 2rem auto;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      width: 90%;
+      max-width: 400px;
+      backdrop-filter: blur(6px);
+      transition: 0.3s ease;
+    }
+
+    select option {
+      background-color: #6228d7;
+      color: white;
+    }
+
+    body.dark select {
+      background-color: #333;
+      color: #f0f0f0;
+    }
+
+    #problemsContainer {
+      max-width: 800px;
+      margin: 0 auto;
+      animation: fadeInUp 1.2s ease-in;
+    }
+
+    .problem {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(6px);
+      padding: 1.2rem;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .problem-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 0.6rem;
+      color: #ffccff;
+    }
+
+    .problem-description {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: #f5eaff;
+    }
+
+    .replies {
+      margin-top: 1rem;
+      padding-left: 1rem;
+      border-left: 3px solid #ff7eb3;
+    }
+
+    .replies strong {
+      color: #ffeaff;
+    }
+
+    .reply {
+      font-style: italic;
+      margin: 0.3rem 0;
+      color: #fff5f8;
+    }
+
+    .reply-form {
+      margin-top: 1rem;
+    }
+
+    .reply-form textarea {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      resize: none;
+      margin-bottom: 0.6rem;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      backdrop-filter: blur(5px);
+    }
+
+    .reply-form button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background: #ff7eb3;
+      border: none;
+      border-radius: 20px;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .reply-form button:hover {
+      background: #ff559d;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeIn {
@@ -67,265 +195,71 @@
       to { opacity: 1; }
     }
 
-    /* ------------------- */
-    /*  2. Header & Nav    */
-    /* ------------------- */
-    .site-header {
-      width: 100%;
-      max-width: 1100px;
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      text-shadow: 1px 1px 3px var(--shadow-color);
-    }
-
-    .logo span {
-      background: linear-gradient(45deg, #ffccff, var(--primary-accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    
-    .nav-links { display: flex; align-items: center; gap: 0.5rem; }
-    
-    .nav-links a, .nav-links button {
-      padding: 0.5rem 1rem;
-      background: var(--bg-glass);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--border-radius-input);
-      color: var(--text-dark);
-      cursor: pointer;
-      font-family: var(--font-family);
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-    .nav-links a:hover, .nav-links button:hover {
-      background: var(--bg-glass-focus);
-      transform: translateY(-2px);
-    }
-    .menu-toggle { display: none; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
-
-    /* ------------------- */
-    /*  3. Main Content    */
-    /* ------------------- */
-    main {
-      flex-grow: 1;
-      width: 100%;
-      max-width: 800px;
-      padding: 1rem;
-    }
-
-    .page-title { text-align: center; font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 700; color: var(--text-dark); margin-bottom: 1.5rem; }
-
-    .filter-section { text-align: center; margin-bottom: 2rem; }
-    .filter-section label { font-weight: 600; display: block; margin-bottom: 0.75rem; color: var(--text-dark); }
-    
-    #categorySelect {
-      width: 100%;
-      max-width: 400px;
-      padding: 0.9rem 1rem;
-      font-size: 1rem;
-      font-family: var(--font-family);
-      border-radius: var(--border-radius-input);
-      border: 1px solid transparent;
-      background: var(--bg-glass);
-      color: var(--text-dark);
-      transition: all 0.3s ease;
-      appearance: none; -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 1rem center;
-    }
-    #categorySelect:focus {
-        outline: none; background: var(--bg-glass-focus); border-color: var(--border-glass); box-shadow: 0 0 0 3px var(--bg-glass-focus);
-    }
-    #categorySelect option { background-color: #2e2e3a; color: var(--text-light); }
-
-    /* Loading Spinner & Messages */
-    .loader { border: 4px solid var(--bg-glass-focus); border-top: 4px solid var(--primary-accent); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 3rem auto; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .info-message { text-align: center; padding: 2rem; background: var(--bg-glass); border-radius: var(--border-radius-main); margin-top: 2rem; font-size: 1.1rem; }
-
-    /* ------------------- */
-    /*  4. Problem Cards   */
-    /* ------------------- */
-    .problem {
-      background: var(--bg-glass);
-      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-      border-radius: var(--border-radius-main);
-      box-shadow: 0 8px 32px 0 var(--shadow-color);
-      border: 1px solid var(--border-glass);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.5s ease-out forwards;
-    }
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-    .problem-title { font-size: 1.4rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.75rem; }
-    .problem-description { font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem; }
-    
-    .replies { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-glass); }
-    .replies strong { font-weight: 600; color: var(--text-dark); display: block; margin-bottom: 1rem; }
-    
-    .reply { background: var(--bg-glass-med); padding: 1rem; border-radius: var(--border-radius-input); margin-bottom: 0.75rem; font-style: italic; font-size: 0.95rem; line-height: 1.5; }
-    .reply em { opacity: 0.8; font-style: normal; }
-
-    .reply-form textarea {
-      width: 100%;
-      padding: 0.9rem 1rem;
-      font-size: 1rem;
-      font-family: var(--font-family);
-      border-radius: var(--border-radius-input);
-      border: 1px solid transparent;
-      margin-bottom: 0.75rem;
-      background: var(--bg-glass-med);
-      color: var(--text-dark);
-      transition: all 0.3s ease;
-      resize: vertical;
-    }
-    .reply-form textarea:focus { outline: none; background: var(--bg-glass-focus); border-color: var(--border-glass); box-shadow: 0 0 0 3px var(--bg-glass-focus); }
-    
-    .reply-form button {
-      padding: 0.7rem 1.5rem;
-      background: var(--primary-accent);
-      border: none;
-      border-radius: 50px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .reply-form button:hover { background: var(--primary-accent-hover); transform: translateY(-2px); }
-
-    /* ------------------- */
-    /*  5. Mobile Nav      */
-    /* ------------------- */
-    @media (max-width: 768px) {
-      .site-header { position: sticky; top: 0; background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
-      .menu-toggle { display: block; z-index: 1001; }
-      .nav-links { position: fixed; top: 0; right: 0; width: 70%; height: 100%; flex-direction: column; justify-content: center; align-items: center; gap: 2rem; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); }
-      .nav-links.is-open { transform: translateX(0); }
-      .nav-links a, .nav-links button { font-size: 1.2rem; background: transparent; border: none; }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.7rem; }
+      .btns { flex-direction: column; align-items: flex-end; }
     }
   </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="logo">Thought<span>Drop</span></div>
-    <nav class="nav-links" id="nav-menu">
-      <a href="index.html">🏠 Home</a>
-      <a href="ask.html">📝 Ask Problem</a>
-      <button onclick="toggleDarkMode()" id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
-    </nav>
-    <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu">☰</button>
-  </header>
+  <header>
+  <div class="logo">ThoughtDrop</div>
+  <div class="btns">
+    <button onclick="location.href='index.html'">🏠 Home</button>
+    <button onclick="location.href='ask.html'">📝 Ask Problem</button>
+    <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+  </div>
+</header>
 
-  <main>
-    <h1 class="page-title">View Problems</h1>
+  <h1>View Problems</h1>
 
-    <div class="filter-section">
-      <label for="categorySelect">Filter by Category:</label>
-      <select id="categorySelect">
-        <option value="all">All Categories</option>
-        <option value="relationship">Relationship</option>
-        <option value="study">Study</option>
-        <option value="college life">College Life</option>
-        <option value="job problems">Job Problems</option>
-      </select>
-    </div>
+  <label for="categorySelect">Select Category:</label>
+  <select id="categorySelect">
+    <option value="relationship">Relationship</option>
+    <option value="study">Study</option>
+    <option value="college life">College Life</option>
+    <option value="job problems">Job Problems</option>
+  </select>
 
-    <div id="problemsContainer"></div>
-  </main>
+  <div id="problemsContainer"></div>
 
   <script>
-    // --- UI Elements ---
     const categorySelect = document.getElementById('categorySelect');
     const problemsContainer = document.getElementById('problemsContainer');
-    const menuToggle = document.getElementById('menu-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const htmlEl = document.documentElement;
 
-    // --- Mobile Navigation Toggle ---
-    menuToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('is-open');
-      menuToggle.innerHTML = navMenu.classList.contains('is-open') ? '✕' : '☰';
-    });
-    
-    // --- Dark Mode Logic ---
-    function setDarkTheme(isDark) {
-      if (isDark) {
-        htmlEl.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-        darkModeToggle.innerHTML = '☀️'; // Sun icon for light mode
-      } else {
-        htmlEl.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-        darkModeToggle.innerHTML = '🌙'; // Moon icon for dark mode
-      }
-    }
-
-    function toggleDarkMode() {
-      const isDark = htmlEl.getAttribute('data-theme') === 'dark';
-      setDarkTheme(!isDark);
-    }
-    
-    // Check for saved theme preference on load
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark' || (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setDarkTheme(true);
-    }
-
-    // --- Data Fetching & Rendering (Unchanged Core Logic) ---
     async function fetchProblems(category) {
-      problemsContainer.innerHTML = '<div class="loader"></div>';
+      problemsContainer.innerHTML = '<p style="text-align:center;">Loading...</p>';
       try {
-        const url = category === 'all' ? '/api/problems' : `/api/problems/${encodeURIComponent(category)}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const res = await fetch(`/api/problems/${encodeURIComponent(category)}`);
+        if (!res.ok) throw new Error('Failed to fetch');
         const problems = await res.json();
         renderProblems(problems);
       } catch (e) {
-        console.error("Fetch Error:", e);
-        problemsContainer.innerHTML = '<div class="info-message">⚠️ Could not load problems. Please try again later.</div>';
+        problemsContainer.innerHTML = '<p style="text-align:center;">Error loading problems.</p>';
       }
     }
 
     function renderProblems(problems) {
-      if (!problems || problems.length === 0) {
-        problemsContainer.innerHTML = '<div class="info-message">✨ No problems found in this category yet. Be the first to share!</div>';
+      if (problems.length === 0) {
+        problemsContainer.innerHTML = '<p style="text-align:center;">No problems found in this category.</p>';
         return;
       }
 
       problemsContainer.innerHTML = '';
-      problems.forEach((problem, index) => {
+      problems.forEach(problem => {
         const div = document.createElement('div');
         div.className = 'problem';
-        div.style.animationDelay = `${index * 100}ms`; // Staggered animation
 
         div.innerHTML = `
           <div class="problem-title">${escapeHtml(problem.title)}</div>
           <div class="problem-description">${escapeHtml(problem.description)}</div>
           <div class="replies">
             <strong>Replies:</strong>
-            <div>${problem.replies && problem.replies.length > 0 ? problem.replies.map(r => `<div class="reply">${escapeHtml(r)}</div>`).join('') : '<div class="reply"><em>No replies yet.</em></div>'}</div>
+            <div>${problem.replies.length > 0 ? problem.replies.map(r => `<div class="reply">${escapeHtml(r)}</div>`).join('') : '<em>No replies yet.</em>'}</div>
           </div>
           <form class="reply-form" data-id="${problem._id}">
-            <textarea name="reply" rows="2" placeholder="Write a supportive reply..." required></textarea>
+            <textarea rows="2" placeholder="Write your reply..." required></textarea>
             <button type="submit">Submit Reply</button>
           </form>
         `;
@@ -335,9 +269,8 @@
         const form = div.querySelector('.reply-form');
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
-          const textarea = form.querySelector('textarea');
-          const replyText = textarea.value.trim();
-          if (!replyText) return;
+          const replyText = form.querySelector('textarea').value.trim();
+          if (!replyText) return alert('Reply cannot be empty.');
 
           try {
             const res = await fetch(`/api/problems/${problem._id}/reply`, {
@@ -346,11 +279,9 @@
               body: JSON.stringify({ reply: replyText }),
             });
             if (!res.ok) throw new Error('Failed to submit reply');
-            textarea.value = '';
-            // Refresh problems to show the new reply
-            fetchProblems(categorySelect.value); 
+            form.querySelector('textarea').value = '';
+            fetchProblems(categorySelect.value);
           } catch (err) {
-            console.error("Reply Error:", err);
             alert('Error submitting reply.');
           }
         });
@@ -358,19 +289,22 @@
     }
 
     function escapeHtml(text) {
-      if (typeof text !== 'string') return '';
       return text.replace(/[&<>"']/g, (m) => ({
-        '&': '&', '<': '<', '>': '>', '"': '"', "'": '''
-      }[m]));
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[m]);
     }
 
-    // --- Initial Load & Event Listeners ---
     categorySelect.addEventListener('change', () => {
       fetchProblems(categorySelect.value);
     });
 
-    // Initial fetch on page load
+    // Initial fetch
     fetchProblems(categorySelect.value);
+
+    // Toggle Dark Mode
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
   </script>
 
 </body>
