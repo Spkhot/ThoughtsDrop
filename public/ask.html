@@ -2,243 +2,311 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ThoughtDrop - Ask a Problem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet" />
+  <!-- Using a more modern, cleaner font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    /* ------------------- */
+    /*  1. Global & Theme  */
+    /* ------------------- */
+    :root {
+      --grad-start: #8360c3;
+      --grad-end: #2ebf91;
+      --primary-accent: #ff7eb3;
+      --primary-accent-hover: #ff559d;
+      --text-light: #f0f0f0;
+      --text-dark: #ffffff;
+      --bg-glass: rgba(255, 255, 255, 0.1);
+      --bg-glass-focus: rgba(255, 255, 255, 0.2);
+      --border-glass: rgba(255, 255, 255, 0.2);
+      --shadow-color: rgba(0, 0, 0, 0.25);
+      --font-family: 'Poppins', sans-serif;
+      --border-radius-main: 20px;
+      --border-radius-input: 12px;
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Prompt', sans-serif;
-      background: linear-gradient(to right, #8360c3, #2ebf91);
-      color: #f5f5f5;
+      font-family: var(--font-family);
+      background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+      background-attachment: fixed;
+      color: var(--text-light);
       min-height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      padding: 2rem;
-      animation: fadeIn 1.2s ease-in-out;
-      position: relative;
+      padding-top: 5rem; /* Space for the header */
+      animation: fadeIn 1s ease-in-out;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* ------------------- */
+    /*  2. Header & Nav    */
+    /* ------------------- */
+    .site-header {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
     }
 
     .logo {
-      position: absolute;
-      top: 20px;
-      left: 30px;
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: #ffffff;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-shadow: 1px 1px 3px var(--shadow-color);
     }
 
     .logo span {
-      color: #ffccff;
+      background: linear-gradient(45deg, #ffccff, var(--primary-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-
-    .nav-buttons {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      display: flex;
-      gap: 0.6rem;
-    }
-
-    .nav-buttons button {
+    
+    .nav-links { display: flex; align-items: center; gap: 0.5rem; }
+    
+    .nav-links a {
       padding: 0.5rem 1rem;
-      background: rgba(255, 255, 255, 0.15);
-      border: none;
-      border-radius: 12px;
-      color: white;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--border-radius-input);
+      color: var(--text-dark);
       cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
+      font-family: var(--font-family);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
+    .nav-links a:hover {
+      background: var(--bg-glass-focus);
+      transform: translateY(-2px);
+    }
+    .menu-toggle { display: none; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
 
-    .nav-buttons button:hover {
-      background: rgba(255, 255, 255, 0.3);
+
+    /* ------------------- */
+    /*  3. Main Content    */
+    /* ------------------- */
+    main {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 1.5rem;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.09);
-      backdrop-filter: blur(12px);
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      padding: 2rem 2.5rem;
+      background: var(--bg-glass);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: var(--border-radius-main);
+      box-shadow: 0 8px 32px 0 var(--shadow-color);
+      border: 1px solid var(--border-glass);
+      padding: 2rem;
       width: 100%;
       max-width: 600px;
-      animation: fadeInUp 1.5s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-out 0.2s forwards;
     }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     h1 {
       text-align: center;
-      font-size: 2.4rem;
-      color: #ffffff;
-      margin-bottom: 0.8rem;
+      font-size: clamp(1.8rem, 5vw, 2.4rem); /* Responsive font size */
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
     }
 
     p.intro {
       text-align: center;
       font-size: 1rem;
+      line-height: 1.6;
       margin-bottom: 2rem;
-      color: #eaeaea;
+      color: var(--text-light);
+    }
+
+    /* ------------------- */
+    /*  4. Form Elements   */
+    /* ------------------- */
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
     }
 
     label {
-      font-weight: bold;
+      font-weight: 600;
       display: block;
-      margin-top: 1rem;
-      margin-bottom: 0.4rem;
-      color: #ffffff;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
     }
 
     select, input, textarea {
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.9rem 1rem;
       font-size: 1rem;
-      border-radius: 10px;
-      border: none;
-      margin-bottom: 1rem;
-      background: rgba(255, 255, 255, 0.15);
-      color: #ffffff;
+      font-family: var(--font-family);
+      border-radius: var(--border-radius-input);
+      border: 1px solid var(--border-glass);
+      background: var(--bg-glass);
+      color: var(--text-dark);
       transition: all 0.3s ease;
-      backdrop-filter: blur(3px);
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
     }
 
     option {
       background-color: #2e2e3a;
-      color: #ffffff;
+      color: var(--text-light);
+    }
+    
+    /* Beautiful focus state for inputs */
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      background: var(--bg-glass-focus);
+      border-color: var(--primary-accent);
+      box-shadow: 0 0 0 3px var(--bg-glass-focus);
     }
 
-    select:focus, input:focus, textarea:focus {
-      outline: none;
-      background-color: rgba(255, 255, 255, 0.25);
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+    ::placeholder {
+      color: rgba(255, 255, 255, 0.6);
     }
 
     button[type="submit"] {
       width: 100%;
-      padding: 0.9rem;
-      background: #ff7eb3;
+      padding: 1rem;
+      background: var(--primary-accent);
       border: none;
-      border-radius: 30px;
+      border-radius: 50px;
       font-size: 1.1rem;
-      font-weight: bold;
+      font-weight: 600;
       color: white;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin-top: 1.2rem;
+      margin-top: 1.5rem;
       box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     button[type="submit"]:hover {
-      background: #ff559d;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      background: var(--primary-accent-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px var(--shadow-color);
     }
 
+    /* ------------------- */
+    /*  5. Footer          */
+    /* ------------------- */
     footer {
       margin-top: 2rem;
       text-align: center;
       font-size: 0.9rem;
-      color: #f0f0f0;
+      color: var(--text-light);
+      opacity: 0.8;
     }
 
-    /* Mobile Responsive Styling */
-    @media (max-width: 600px) {
-      .logo {
-        font-size: 1.4rem;
-        top: 15px;
-        left: 20px;
-      }
-
-      .nav-buttons {
-        flex-direction: column;
-        top: 60px;
-        right: 20px;
-        gap: 0.4rem;
-      }
-
-      .nav-buttons button {
-        font-size: 0.9rem;
-        padding: 0.4rem 0.8rem;
-      }
-
-      .container {
-        padding: 1.5rem;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      p.intro {
-        font-size: 0.95rem;
-      }
-
-      select, input, textarea {
-        font-size: 0.95rem;
-        padding: 0.7rem;
-      }
-
-      button[type="submit"] {
-        font-size: 1rem;
-        padding: 0.8rem;
-      }
+    /* ------------------- */
+    /*  6. Mobile Nav      */
+    /* ------------------- */
+    @media (max-width: 768px) {
+      body { padding-top: 0; }
+      .site-header { position: relative; } /* Change from absolute for mobile */
+      .menu-toggle { display: block; z-index: 1001; }
+      .nav-links { position: fixed; top: 0; right: 0; width: 70%; height: 100%; flex-direction: column; justify-content: center; align-items: center; gap: 2rem; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); }
+      .nav-links.is-open { transform: translateX(0); }
+      .nav-links a { font-size: 1.2rem; background: transparent; border: none; }
+      main { padding: 1.5rem; align-items: flex-start; }
+      .container { padding: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="logo">Thought<span>Drop</span></div>
+  <header class="site-header">
+    <div class="logo">Thought<span>Drop</span></div>
+    <nav class="nav-links" id="nav-menu">
+      <a href="index.html">🏠 Home</a>
+      <a href="view.html">📄 View</a>
+    </nav>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu">☰</button>
+  </header>
 
-  <div class="nav-buttons">
-    <button onclick="location.href='index.html'">🏠 Home</button>
-    <button onclick="location.href='view.html'">📄 View</button>
-  </div>
+  <main>
+    <div class="container">
+      <h1>Ask a Problem</h1>
+      <p class="intro">
+        Share your thoughts anonymously. Be it relationships, college stress, or life struggles — we’re here to listen.
+      </p>
 
-  <div class="container">
-    <h1>Ask a Problem</h1>
-    <p class="intro">
-      Share your thoughts anonymously. Be it relationships, college stress, or life struggles — we’re here to listen.
-    </p>
+      <form id="problemForm">
+        <div class="form-group">
+          <label for="category">Choose a category:</label>
+          <select id="category" required>
+            <option value="" disabled selected>Select a category...</option>
+            <option value="relationship">Relationship</option>
+            <option value="study">Study</option>
+            <option value="college life">College Life</option>
+            <option value="job problems">Job Problems</option>
+          </select>
+        </div>
 
-    <form id="problemForm">
-      <label for="category">Choose a category:</label>
-      <select id="category" required>
-        <option value="" disabled selected>Select category</option>
-        <option value="relationship">Relationship</option>
-        <option value="study">Study</option>
-        <option value="college life">College Life</option>
-        <option value="job problems">Job Problems</option>
-      </select>
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" id="title" placeholder="A short summary of your problem" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Describe your issue:</label>
+          <textarea id="description" rows="5" placeholder="Write whatever you feel... we're listening ❤️" required></textarea>
+        </div>
 
-      <label for="title">Title:</label>
-      <input type="text" id="title" placeholder="Short summary of your problem" required />
-
-      <label for="description">Describe your issue:</label>
-      <textarea id="description" rows="5" placeholder="Write here whatever you feel... we're listening ❤️" required></textarea>
-
-      <button type="submit">📨 Submit Problem</button>
-    </form>
-
-    <footer>&copy; 2025 ThoughtDrop. You are not alone — we’re here for you.</footer>
-  </div>
-
+        <button type="submit">
+          <span>📨</span> Submit Problem
+        </button>
+      </form>
+      
+      <footer>© 2025 ThoughtDrop. You are not alone.</footer>
+    </div>
+  </main>
+  
   <script>
+    // --- UI Interaction Logic (New) ---
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('is-open');
+      // Change hamburger to X and back for better UX
+      menuToggle.innerHTML = navMenu.classList.contains('is-open') ? '✕' : '☰';
+    });
+
+
+    // --- YOUR BACKEND-FACING SCRIPT (UNCHANGED) ---
     const form = document.getElementById('problemForm');
 
     form.addEventListener('submit', async (e) => {
