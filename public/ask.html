@@ -4,12 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ThoughtDrop - Ask a Problem</title>
-  <!-- Using a more modern, cleaner font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ------------------- */
-    /*  1. Global & Theme  */
-    /* ------------------- */
     :root {
       --grad-start: #8360c3;
       --grad-end: #2ebf91;
@@ -43,10 +39,6 @@
     }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    /* ------------------- */
-    /*  2. Header & Nav    */
-    /* ------------------- */
     .site-header {
       width: 100%;
       max-width: 1200px;
@@ -95,11 +87,6 @@
       transform: translateY(-2px);
     }
     .menu-toggle { display: none; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
-
-
-    /* ------------------- */
-    /*  3. Main Content    */
-    /* ------------------- */
     main {
       flex-grow: 1;
       display: flex;
@@ -141,10 +128,6 @@
       margin-bottom: 2rem;
       color: var(--text-light);
     }
-
-    /* ------------------- */
-    /*  4. Form Elements   */
-    /* ------------------- */
     .form-group {
       margin-bottom: 1.5rem;
       position: relative;
@@ -181,8 +164,6 @@
       background-color: #2e2e3a;
       color: var(--text-light);
     }
-    
-    /* Beautiful focus state for inputs */
     input:focus, textarea:focus, select:focus {
       outline: none;
       background: var(--bg-glass-focus);
@@ -218,10 +199,6 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 20px var(--shadow-color);
     }
-
-    /* ------------------- */
-    /*  5. Footer          */
-    /* ------------------- */
     footer {
       margin-top: 2rem;
       text-align: center;
@@ -229,10 +206,6 @@
       color: var(--text-light);
       opacity: 0.8;
     }
-
-    /* ------------------- */
-    /*  6. Mobile Nav      */
-    /* ------------------- */
     @media (max-width: 768px) {
       body { padding-top: 0; }
       .site-header { position: relative; } /* Change from absolute for mobile */
@@ -313,18 +286,13 @@
   </main>
   
   <script>
-    // --- UI Interaction Logic (New) ---
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('nav-menu');
 
     menuToggle.addEventListener('click', () => {
       navMenu.classList.toggle('is-open');
-      // Change hamburger to X and back for better UX
       menuToggle.innerHTML = navMenu.classList.contains('is-open') ? '✕' : '☰';
     });
-
-
-    // --- YOUR BACKEND-FACING SCRIPT (UNCHANGED) ---
     const form = document.getElementById('problemForm');
 
     form.addEventListener('submit', async (e) => {

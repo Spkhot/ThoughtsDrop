@@ -4,12 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ThoughtDrop - View Problems</title>
-  <!-- Using a more modern, cleaner font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ------------------- */
-    /*  1. Global & Theme  */
-    /* ------------------- */
     :root {
       --grad-start: #8360c3;
       --grad-end: #2ebf91;
@@ -26,8 +22,6 @@
       --border-radius-main: 20px;
       --border-radius-input: 12px;
     }
-
-    /* Dark Theme using a data-attribute for a more robust system */
     [data-theme="dark"] {
       --grad-start: #1e133a;
       --grad-end: #1c2e27;
@@ -56,10 +50,6 @@
     }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    /* ------------------- */
-    /*  2. Header & Nav    */
-    /* ------------------- */
     .site-header {
       width: 100%;
       max-width: 1100px;
@@ -104,10 +94,6 @@
       transform: translateY(-2px);
     }
     .menu-toggle { display: none; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
-
-    /* -------------------------------------- */
-    /*  3. Main Content & Problem Cards      */
-    /* -------------------------------------- */
     main {
       flex-grow: 1;
       width: 100%;
@@ -162,12 +148,10 @@
     }
     #categorySelect option { background-color: #2e2e3a; color: var(--text-light); }
 
-    /* --- Beautiful Feedback Styles --- */
     .loader { border: 4px solid var(--bg-glass-focus); border-top: 4px solid var(--primary-accent); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 3rem auto; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .info-message { text-align: center; padding: 2rem; background: var(--bg-glass); border-radius: var(--border-radius-main); margin-top: 2rem; font-size: 1.1rem; border: 1px solid var(--border-glass); }
 
-    /* --- Stylish Problem Card --- */
     .problem {
       background: var(--bg-glass);
       backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -247,7 +231,6 @@
 
   <header class="site-header">
     <div class="logo">Thought<span>Drop</span></div>
-    <!-- Navigation uses proper links and a button for actions -->
     <nav class="nav-links" id="nav-menu">
       <a href="index.html">🏠 Home</a>
       <a href="ask.html">📝 Ask Problem</a>
@@ -288,8 +271,6 @@
 </footer>
 
   <script>
-    // --- UI ELEMENTS ---
-    // All the elements our script needs to interact with
     const categorySelect = document.getElementById('categorySelect');
     const problemsContainer = document.getElementById('problemsContainer');
     const menuToggle = document.getElementById('menu-toggle');
