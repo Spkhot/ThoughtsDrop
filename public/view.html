@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>ThoughtDrop - View Problems</title>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet" />
   <style>
@@ -32,6 +32,7 @@
       align-items: center;
       padding: 1rem 0;
       margin-bottom: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .logo {
@@ -46,6 +47,7 @@
     .btns {
       display: flex;
       gap: 0.8rem;
+      flex-wrap: wrap;
     }
 
     .btns button {
@@ -197,20 +199,21 @@
 
     @media (max-width: 600px) {
       h1 { font-size: 1.7rem; }
-      .btns { flex-direction: column; align-items: flex-end; }
+      .btns { flex-direction: column; align-items: flex-end; gap: 0.6rem; }
+      .btns button { width: 100%; }
     }
   </style>
 </head>
 <body>
 
   <header>
-  <div class="logo">ThoughtDrop</div>
-  <div class="btns">
-    <button onclick="location.href='index.html'">🏠 Home</button>
-    <button onclick="location.href='ask.html'">📝 Ask Problem</button>
-    <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
-  </div>
-</header>
+    <div class="logo">ThoughtDrop</div>
+    <div class="btns">
+      <button onclick="location.href='index.html'">🏠 Home</button>
+      <button onclick="location.href='ask.html'">📝 Ask Problem</button>
+      <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+    </div>
+  </header>
 
   <h1>View Problems</h1>
 
@@ -298,10 +301,8 @@
       fetchProblems(categorySelect.value);
     });
 
-    // Initial fetch
     fetchProblems(categorySelect.value);
 
-    // Toggle Dark Mode
     function toggleDarkMode() {
       document.body.classList.toggle('dark');
     }
