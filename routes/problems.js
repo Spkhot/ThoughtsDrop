@@ -32,24 +32,22 @@ router.get('/:category', async (req, res) => {
 });
 
 // Add a reply to a problem (with timestamp)
+// Reply to a problem
 router.post('/:id/reply', async (req, res) => {
   try {
     const { reply } = req.body;
     const problem = await Problem.findById(req.params.id);
     if (!problem) return res.status(404).json({ error: 'Problem not found' });
 
-    const replyObj = {
-      text: reply,
-      createdAt: new Date()
-    };
-
-    problem.replies.push(replyObj);
+    // Push as object with timestamp
+    problem.replies.push({ text: reply, createdAt: new Date() });
     await problem.save();
     res.json(problem);
   } catch (err) {
     res.status(500).json({ error: 'Failed to submit reply' });
   }
 });
+
 
 // DELETE a reply (only within 2 minutes of posting)
 router.delete('/:id/reply/:index', async (req, res) => {

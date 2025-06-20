@@ -7,10 +7,7 @@ const problemSchema = new mongoose.Schema({
   replies: [
     {
       text: String,
-      createdAt: {
-        type: Date,
-        default: Date.now
-      }
+      createdAt: { type: Date, default: Date.now }
     }
   ]
 }, { timestamps: true });
